@@ -9,7 +9,7 @@
 #include <engine/e_sdl.h>
 
 int main (int argc, char ** argv) {
-    e_sdl_context_t context = e_sdl_setup("Noc90", 640, 480, SDL_INIT_VIDEO);
+    e_sdl_context_t context = e_sdl_setup("Nocturne Island Alpha", 640, 480, SDL_INIT_VIDEO);
     
     // main event loop
     int running = 1;
