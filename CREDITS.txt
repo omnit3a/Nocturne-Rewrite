@@ -1,2 +1,7 @@
 SDL2:
  - https://www.libsdl.org
+
+microjson:
+ - https://gitlab.com/esr/microjson
+ - Note: mjson.h (found at `src/libs/mjson/mjson.c`) has been modified to be compatible
+   with the Nocturne Island source code structure

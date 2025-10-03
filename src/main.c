@@ -11,8 +11,9 @@
 #include <engine/e_input.h>
 
 int main (int argc, char ** argv) {
-    e_sdl_context_t context = e_sdl_setup("Nocturne Island Alpha", 640, 480, SDL_INIT_VIDEO);
     e_input_initialize_state();
+    
+    e_sdl_context_t context = e_sdl_setup("Nocturne Island Alpha", 640, 480, SDL_INIT_VIDEO);
     
     // main event loop
     bool should_quit = false;
@@ -20,9 +21,6 @@ int main (int argc, char ** argv) {
         e_sdl_redraw(&context);
         
         e_input_handle();
-        
-        // remove e_input_print_state() from main loop when done adding input system
-        e_input_print_state();
         
         should_quit = e_input_get_state().should_quit;
         if (should_quit){
