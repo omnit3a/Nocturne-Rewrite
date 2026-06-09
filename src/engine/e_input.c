@@ -86,7 +86,6 @@ void e_input_handle (void) {
             }
             
             input_state.key_state[event.key.keysym.sym] = false;
-
             break;    
             
         default:
