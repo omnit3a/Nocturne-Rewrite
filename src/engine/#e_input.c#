@@ -36,8 +36,8 @@ void e_input_update_mod_state (void) {
         index++;
         
         if (!mod){
-            mod++;
-            continue;
+	  mod++;
+	  continue;
         }
         
     } while (mod <= 0x8000);
@@ -75,6 +75,7 @@ void e_input_handle (void) {
             }
             
             input_state.key_state[event.key.keysym.sym] = true;
+	    printf("Input: %d\n", event.key.keysym.sym);
             break;
                 
         case SDL_KEYUP:
