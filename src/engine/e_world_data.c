@@ -20,6 +20,10 @@ void e_world_data_initialize (e_world_object_t ** world_data_array, int width, i
     e_debug_already_initialized(E_DEBUG_SUBSYSTEM_WORLD_DATA, "Unknown world data state, re-initializing");
   }
 
+  const int w = width;
+  const int h = height;
+  const int wh = width * height;
+  
   int total_world_indices = width * height * depth;
   *world_data_array = malloc(total_world_indices * sizeof(e_world_object_t));
 
@@ -27,6 +31,16 @@ void e_world_data_initialize (e_world_object_t ** world_data_array, int width, i
     (*world_data_array)[world_index].id = 0;
     (*world_data_array)[world_index].name = "AIR";
 
+    // three dimensional components of the one dimensional world_index
+    int index_zc = world_index / wh;
+    int index_yc = (world_index - index_zc * wh) / w;
+    int index_xc = world_index - w * (index_yc + h * index_zc);
+
+    (*world_data_array)[world_index].pos.x = index_xc;
+    (*world_data_array)[world_index].pos.y = index_yc;
+    (*world_data_array)[world_index].pos.z = index_zc;
+    (*world_data_array)[world_index].pos.i = world_index;
+    printf("i = %d ∴ x = %d, y = %d, z %d\n", world_index, index_xc, index_yc, index_zc);
     // TODO: 1d index (world_index) to XYZ coordinates for world_object
     
     (*world_data_array)[world_index].size = 1.0f;

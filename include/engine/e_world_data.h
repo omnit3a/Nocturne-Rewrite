@@ -17,9 +17,12 @@ typedef struct e_world_object_s {
   int id;
   char * name;
 
-  int x_pos;
-  int y_pos;
-  int z_pos;
+  struct pos_s {
+    int x;
+    int y;
+    int z;
+    int i; // one dimensional world index, precalculated
+  } pos;
 
   // amount of space this tile takes up within a specific x/y/z coordinate
   float size;

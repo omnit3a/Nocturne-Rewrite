@@ -17,6 +17,7 @@ int main (int argc, char ** argv) {
     e_sdl_context_t context = e_sdl_setup("Nocturne Island Alpha", 640, 480, SDL_INIT_VIDEO);
 
     // setup world data
+    // note: come up with more memory safe way of allocating. maybe contexts?
     e_world_object_t * world_data_array;
     e_world_data_initialize(&world_data_array, 10, 10, 10);
     
@@ -35,7 +36,9 @@ int main (int argc, char ** argv) {
         // insert gameplay loop here
     }
 
-    free(world_data_array);()
+    // DO NOT COMMENT OUT. MEMORY LEAK: FIX
+    free(world_data_array);
+			  
     e_sdl_quit(&context);
     return 0;
 }
