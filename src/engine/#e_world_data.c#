@@ -41,7 +41,6 @@ void e_world_data_initialize (e_world_object_t ** world_data_array, int width, i
     (*world_data_array)[world_index].pos.z = index_zc;
     (*world_data_array)[world_index].pos.i = world_index;
     printf("i = %d ∴ x = %d, y = %d, z %d\n", world_index, index_xc, index_yc, index_zc);
-    // TODO: 1d index (world_index) to XYZ coordinates for world_object
     
     (*world_data_array)[world_index].size = 1.0f;
     (*world_data_array)[world_index].volume = 1.0f;
