@@ -8,6 +8,7 @@
 // debuggable sub-systems
 #define E_DEBUG_SUBSYSTEM_SDL "SDL2"
 #define E_DEBUG_SUBSYSTEM_WORLD_DATA "WORLD_DATA"
+#define E_DEBUG_SUBSYSTEM_LOAD_OBJECT_DEFS "LOAD_OBJECT_DEFS"
 
 // used for printing the status of an initialization sequence
 // `stage` is the current stage of the sequence, `steps` is the amount of stages in the sequence

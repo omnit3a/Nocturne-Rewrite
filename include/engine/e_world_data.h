@@ -45,6 +45,6 @@ typedef struct e_world_object_s {
 } e_world_object_t;
 
 // sets aside space for world data array, and fill with empty blocks;
-void e_world_data_initialize (e_world_object_t ** world_data_array, int width, int height, int depth);
+int e_world_data_initialize (e_world_object_t ** world_data_array, int width, int height, int depth);
 
 #endif

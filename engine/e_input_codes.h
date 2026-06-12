@@ -1,4 +1,0 @@
-#ifndef ENGINE_INPUT_CODES_H_
-#define ENGINE_INPUT_CODES_H_
-
-#endif

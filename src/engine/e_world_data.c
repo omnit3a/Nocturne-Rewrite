@@ -15,10 +15,9 @@
 #include <engine/e_world_data.h>
 #include <engine/e_debug.h>
 
-void e_world_data_initialize (e_world_object_t ** world_data_array, int width, int height, int depth) {
-  if (*world_data_array != NULL) {
-    e_debug_already_initialized(E_DEBUG_SUBSYSTEM_WORLD_DATA, "Unknown world data state, re-initializing");
-  }
+int e_world_data_initialize (e_world_object_t ** world_data_array, int width, int height, int depth) {
+  const int world_data_init_steps = 2;
+  int world_data_init_stage = 1;
 
   const int w = width;
   const int h = height;
@@ -26,7 +25,8 @@ void e_world_data_initialize (e_world_object_t ** world_data_array, int width, i
   
   int total_world_indices = width * height * depth;
   *world_data_array = malloc(total_world_indices * sizeof(e_world_object_t));
-
+  world_data_init_stage = e_debug_init_sequence_success(E_DEBUG_SUBSYSTEM_WORLD_DATA, world_data_init_stage, world_data_init_steps, "Allocated memory for world data");
+  
   for (int world_index = 0 ; world_index < total_world_indices ; world_index++) {
     (*world_data_array)[world_index].id = 0;
     (*world_data_array)[world_index].name = "AIR";
@@ -40,7 +40,6 @@ void e_world_data_initialize (e_world_object_t ** world_data_array, int width, i
     (*world_data_array)[world_index].pos.y = index_yc;
     (*world_data_array)[world_index].pos.z = index_zc;
     (*world_data_array)[world_index].pos.i = world_index;
-    printf("i = %d ∴ x = %d, y = %d, z %d\n", world_index, index_xc, index_yc, index_zc);
     
     (*world_data_array)[world_index].size = 1.0f;
     (*world_data_array)[world_index].volume = 1.0f;
@@ -52,4 +51,8 @@ void e_world_data_initialize (e_world_object_t ** world_data_array, int width, i
 
     (*world_data_array)[world_index].type = TYPE_BLOCK;
   }
+
+  world_data_init_stage = e_debug_init_sequence_success(E_DEBUG_SUBSYSTEM_WORLD_DATA, world_data_init_stage, world_data_init_steps, "Initialized world data");
+
+  return 0;
 };
