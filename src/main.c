@@ -47,7 +47,7 @@ int main (int argc, char ** argv) {
         
         should_quit = e_input_get_state().should_quit;
         if (should_quit){
-	  printf("%s\n", world_data_array[0].name);
+	  printf("Closing...\n");
 	  break;
         }	
         // insert gameplay loop here
