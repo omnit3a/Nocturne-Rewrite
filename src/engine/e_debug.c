@@ -34,3 +34,12 @@ void e_debug_already_initialized (char * subsystem, char * specifics) {
 
   fprintf(stderr, "[%s - STATUS]: Already initialized\n", subsystem);
 }
+
+void e_debug_script_not_found (char * script_name) {
+  if (script_name != NULL) {
+    fprintf(stderr, "[%s - STATUS]: %s\t: Could not find script\n", E_DEBUG_SUBSYSTEM_SCRIPTING, script_name);
+    return;
+  }
+
+  fprintf(stderr, "Why TF are you reporting that you couldn't load a script if you're not even gonna specify which one\n");
+}
