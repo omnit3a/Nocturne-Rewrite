@@ -1,0 +1,4 @@
+(= TYPE_BLOCK 0)
+(= TYPE_ITEM 1)
+
+(register-obj 0 TYPE_BLOCK)

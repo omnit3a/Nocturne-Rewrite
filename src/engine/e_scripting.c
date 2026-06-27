@@ -16,6 +16,7 @@
 // internal headers
 #include <engine/e_scripting.h>
 #include <engine/e_debug.h>
+#include <engine/e_world_data.h>
 
 e_scripting_context_t e_scripting_create_context(size_t memory_block_size) {
   e_scripting_context_t output_context;
@@ -52,11 +53,23 @@ void e_scripting_run_script (e_scripting_context_t * context, char * path) {
     if (!obj) {
       break;
     }
-
+    
     fe_eval(context->context, obj);
-
     fe_restoregc(context->context, gc);
   }
 
   fclose(file_ptr);
+}
+
+static fe_Object * e_loader_script_register_object_def (fe_Context * context, fe_Object * args) {
+  int id = fe_tonumber(context, fe_nextarg(context, &args));
+  e_world_object_type_e type = fe_tonumber(context, fe_nextarg(context, &args));
+  int status = 0; // return status of object registration
+  return fe_number(context, status);
+}
+
+void e_scripting_register_cfuncs (e_scripting_context_t * context) {
+  fe_set(context->context,
+	 fe_symbol(context->context, "register-obj"),
+	 fe_cfunc(context->context, e_loader_script_register_object_def));
 }

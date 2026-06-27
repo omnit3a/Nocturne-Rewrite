@@ -8,27 +8,29 @@
 
 // internal headers
 #include <engine/e_sdl.h>
-#include <engine/e_loader.h>
 #include <engine/e_input.h>
 #include <engine/e_world_data.h>
 #include <engine/e_scripting.h>
 
 int main (int argc, char ** argv) {
   e_scripting_context_t scripting_context = e_scripting_create_context(16384);
-  e_scripting_run_script(&scripting_context, "assets/scripts/test.fe");
+  e_scripting_register_cfuncs(&scripting_context);
   
   e_input_initialize_state();
-    
+  printf("Compiled on %s @ %s\n", __DATE__, __TIME__);
   e_sdl_context_t context = e_sdl_setup("Nocturne Island Alpha", 640, 480, SDL_INIT_VIDEO);
 
   // load world_data object definitions
-  int object_def_load_status;
+  //int object_def_load_status;
   e_world_object_t * object_definition_array;
-  object_def_load_status = e_loader_source_object_defs(&object_definition_array, 1, 256);
-  if (object_def_load_status > 0 || object_definition_array == NULL) {
+  
+  //object_def_load_status = e_loader_source_object_defs(&object_definition_array, 1, 256);
+  e_scripting_run_script(&scripting_context, "assets/scripts/objs.fe");
+  /*if (object_def_load_status > 0 || object_definition_array == NULL) {
     e_sdl_quit(&context);
     exit(object_def_load_status);
   }
+  */
     
   // setup world data
   // note: come up with more memory safe way of allocating. maybe contexts?
@@ -36,7 +38,6 @@ int main (int argc, char ** argv) {
   e_world_object_t * world_data_array;
   world_data_init_status = e_world_data_initialize(&world_data_array, 10, 10, 10);
   if (world_data_init_status > 0 || world_data_array == NULL) {
-    e_loader_offload_object_defs(&object_definition_array);
     e_sdl_quit(&context);      
 	
     exit(world_data_init_status);

@@ -18,5 +18,6 @@ e_scripting_context_t e_scripting_create_context (size_t memory_block_size);
 void e_scripting_free_context (e_scripting_context_t * context);
 
 void e_scripting_run_script (e_scripting_context_t * context, char * path);
+void e_scripting_register_cfuncs (e_scripting_context_t * context);
 
 #endif
