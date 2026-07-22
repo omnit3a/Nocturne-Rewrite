@@ -21,11 +21,12 @@ int main (int argc, char ** argv) {
   e_sdl_context_t context = e_sdl_setup("Nocturne Island Alpha", 640, 480, SDL_INIT_VIDEO);
 
   // load world_data object definitions
-  //int object_def_load_status;
+  //int object_def_load_status;b
   e_world_object_t * object_definition_array;
   
   //object_def_load_status = e_loader_source_object_defs(&object_definition_array, 1, 256);
-  e_scripting_run_script(&scripting_context, "assets/scripts/objs.fe");
+  //e_scripting_run_script(&scripting_context, "assets/scripts/test.fe");
+  e_scripting_run_script(scripting_context.context, "assets/scripts/objs.fe");
   /*if (object_def_load_status > 0 || object_definition_array == NULL) {
     e_sdl_quit(&context);
     exit(object_def_load_status);

@@ -1,0 +1,4 @@
+Scripting System for Nocturne Rewrite
+
+(import <file-name>:string)
+- imports and evaluates a .fe file

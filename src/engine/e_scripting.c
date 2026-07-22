@@ -38,24 +38,24 @@ void e_scripting_free_context(e_scripting_context_t * context) {
   free(context->memory_block);
 }
 
-void e_scripting_run_script (e_scripting_context_t * context, char * path) {
+void e_scripting_run_script (fe_Context * context, char * path) {
   FILE * file_ptr = fopen(path, "rb");
   if (file_ptr == NULL) {
     e_debug_script_not_found(path);
     return;
   }
 
-  int gc = fe_savegc(context->context);
+  int gc = fe_savegc(context);
   
   while (true) {
-    fe_Object * obj = fe_readfp(context->context, file_ptr);
+    fe_Object * obj = fe_readfp(context, file_ptr);
 
     if (!obj) {
       break;
     }
     
-    fe_eval(context->context, obj);
-    fe_restoregc(context->context, gc);
+    fe_eval(context, obj);
+    fe_restoregc(context, gc);
   }
 
   fclose(file_ptr);
@@ -64,12 +64,31 @@ void e_scripting_run_script (e_scripting_context_t * context, char * path) {
 static fe_Object * e_loader_script_register_object_def (fe_Context * context, fe_Object * args) {
   int id = fe_tonumber(context, fe_nextarg(context, &args));
   e_world_object_type_e type = fe_tonumber(context, fe_nextarg(context, &args));
+  
+  char obj_name[256] = "";
+  fe_tostring(context, fe_nextarg(context, &args), obj_name, 256);
+  
   int status = 0; // return status of object registration
   return fe_number(context, status);
 }
 
+static fe_Object * e_scripting_import_directive (fe_Context * context, fe_Object * args) {
+  char file_name[256] = "";
+  fe_tostring(context, fe_nextarg(context, &args), file_name, 256);
+  int status = 0;
+  e_scripting_run_script(context, file_name);
+  
+  return fe_number(context, status);
+  
+}
+
 void e_scripting_register_cfuncs (e_scripting_context_t * context) {
+
   fe_set(context->context,
 	 fe_symbol(context->context, "register-obj"),
 	 fe_cfunc(context->context, e_loader_script_register_object_def));
+
+  fe_set(context->context,
+	 fe_symbol(context->context, "import"),
+	 fe_cfunc(context->context, e_scripting_import_directive));
 }

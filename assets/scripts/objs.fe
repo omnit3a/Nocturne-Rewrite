@@ -1,4 +1,4 @@
-(= TYPE_BLOCK 0)
-(= TYPE_ITEM 1)
+(import "assets/scripts/obj-help.fe")
 
-(register-obj 0 TYPE_BLOCK)
+(register-obj 0 TYPE_BLOCK "Air")
+(register-obj 1 TYPE_BLOCK "Dirt")
