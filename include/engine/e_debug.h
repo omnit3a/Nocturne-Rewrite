@@ -26,5 +26,6 @@ void e_debug_already_initialized (char * subsystem, char * specifics);
 
 // self-explanitory
 void e_debug_script_not_found (char * script_name);
+void e_debug_script_file_not_script (char * script_name);
 
 #endif

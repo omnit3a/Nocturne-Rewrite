@@ -9,6 +9,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdbool.h>
+#include <string.h>
 
 // external libraries
 #include <libs/fe/fe.h>
@@ -74,12 +75,31 @@ static fe_Object * e_loader_script_register_object_def (fe_Context * context, fe
 
 static fe_Object * e_scripting_import_directive (fe_Context * context, fe_Object * args) {
   char file_name[256] = "";
-  fe_tostring(context, fe_nextarg(context, &args), file_name, 256);
+  char * file_ext = malloc(8);
   int status = 0;
+  fe_tostring(context, fe_nextarg(context, &args), file_name, 256);
+
+  // check to make sure that the passed filename is a .fe file
+  for (int ch = 0 ; ch < 256 ; ch++) {
+    if (file_name[ch] != '.') {
+      continue;
+    }
+    strncpy(file_ext, &file_name[ch], 8);
+    break;
+  }
+
+  // if not correct file extension, exit
+  if (strcmp(file_ext, ".fe")) {
+    free(file_ext);
+    e_debug_script_file_not_script(file_name);
+    return fe_number(context, 1);
+  }
+  
+  free(file_ext);
+  
   e_scripting_run_script(context, file_name);
   
-  return fe_number(context, status);
-  
+  return fe_number(context, status);  
 }
 
 void e_scripting_register_cfuncs (e_scripting_context_t * context) {

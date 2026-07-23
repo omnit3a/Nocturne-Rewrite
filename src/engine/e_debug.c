@@ -43,3 +43,8 @@ void e_debug_script_not_found (char * script_name) {
 
   fprintf(stderr, "Why TF are you reporting that you couldn't load a script if you're not even gonna specify which one\n");
 }
+
+void e_debug_script_file_not_script (char * script_name) {
+  fprintf(stderr, "[%s - STATUS]: \'%s\'\t: File is not a \'.fe\' file\n", E_DEBUG_SUBSYSTEM_SCRIPTING, script_name);
+  return;
+}
