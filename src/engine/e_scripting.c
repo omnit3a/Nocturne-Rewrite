@@ -68,8 +68,11 @@ static fe_Object * e_loader_script_register_object_def (fe_Context * context, fe
   
   char obj_name[256] = "";
   fe_tostring(context, fe_nextarg(context, &args), obj_name, 256);
+
+  // TODO: figure out how world def state is stored ; local or global?
+  //int status = e_world_data_register()
+  int status = 0;
   
-  int status = 0; // return status of object registration
   return fe_number(context, status);
 }
 
