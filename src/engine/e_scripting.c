@@ -69,9 +69,30 @@ static fe_Object * e_loader_script_register_object_def (fe_Context * context, fe
   char obj_name[256] = "";
   fe_tostring(context, fe_nextarg(context, &args), obj_name, 256);
 
-  // TODO: figure out how world def state is stored ; local or global?
-  //int status = e_world_data_register()
-  int status = 0;
+  float size = fe_tonumber(context, fe_nextarg(context, &args));
+  float volume = fe_tonumber(context, fe_nextarg(context, &args));
+  float gravity = fe_tonumber(context, fe_nextarg(context, &args));
+  float dispersal_rate = fe_tonumber(context, fe_nextarg(context, &args));
+  bool is_solid = fe_tonumber(context, fe_nextarg(context, &args)) != 0;
+  int hardness = fe_tonumber(context, fe_nextarg(context, &args));
+  
+  // create registration for object def
+  e_world_object_t * object_defs = e_world_data_get_object_def_array();
+  e_world_object_t object_info;
+  object_info.id = id;
+  object_info.name = obj_name;
+  object_info.type = type;
+
+  object_info.size = size;
+  object_info.volume = volume;
+
+  object_info.physics.gravity = gravity;
+  object_info.physics.as_non_solid.dispersal_rate = dispersal_rate;
+  object_info.physics.is_solid = is_solid;
+  object_info.physics.hardness = hardness;
+  
+  int status = e_world_data_object_def_register(&object_defs, id, object_info);
+  e_world_data_set_object_def_array(&object_defs);
   
   return fe_number(context, status);
 }

@@ -1,4 +1,13 @@
 (import "assets/scripts/obj-help.fe")
 
-(register-obj 0 TYPE_BLOCK "Air")
-(register-obj 1 TYPE_BLOCK "Dirt")
+; TODO: seperate physics declaration into distinct cfunc
+
+(register-obj 0 TYPE-BLOCK "Air"
+	      1 1          0
+	      1 #f         0)
+(register-obj 1 TYPE-BLOCK "Dirt"
+              1 1          9.8
+	      0 #t         1)
+(register-obj 2 TYPE-BLOCK "Grass"
+              1 1          9.8
+	      0 #t         1.5)

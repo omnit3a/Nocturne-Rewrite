@@ -45,7 +45,10 @@ typedef struct e_world_object_s {
 } e_world_object_t;
 
 // sets aside space for world data array, and fill with empty blocks;
-int e_world_data_initialize (e_world_object_t ** world_data_array, int indices);
-int e_world_data_register (e_world_object_t ** world_data_array, int index);
+e_world_object_t * e_world_data_get_object_def_array();
+void e_world_data_set_object_def_array(e_world_object_t ** object_definition_array);
+int e_world_data_object_def_initialize (e_world_object_t ** object_definition_array, int indices);
+int e_world_data_object_def_register (e_world_object_t ** object_definition_array, int index,
+				      e_world_object_t object_definition);
 
 #endif

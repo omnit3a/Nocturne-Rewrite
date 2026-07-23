@@ -1,4 +1,7 @@
+(= #t 1)
+(= #f 0)
+
 ; types of objects within the engine
 ; todo: create enum macro
-(= TYPE_BLOCK 0)
-(= TYPE_ITEM 1)
+(= TYPE-BLOCK 0)
+(= TYPE-ITEM 1)

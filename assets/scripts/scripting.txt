@@ -2,3 +2,9 @@ Scripting System for Nocturne Rewrite
 
 (import <file-name>:string)
 - imports and evaluates a .fe file
+
+(register-obj <id>:int <type>:int <name>:string
+              <size>:float <volume>:float <gravity>:float
+	      <dispersal>:float <is_solid>:bool <hardness>:float)
+- registers an object in the object definition array
+  the <id> parameter is also used for texture atlas lookup

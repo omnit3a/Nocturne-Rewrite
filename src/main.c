@@ -22,7 +22,10 @@ int main (int argc, char ** argv) {
 
   // load world_data object definitions
   //int object_def_load_status;b
-  e_world_object_t * object_definition_array;
+  
+  e_world_object_t * object_definition_array = e_world_data_get_object_def_array();
+  e_world_data_object_def_initialize(&object_definition_array, 256);
+  e_world_data_set_object_def_array(&object_definition_array);
   
   //object_def_load_status = e_loader_source_object_defs(&object_definition_array, 1, 256);
   //e_scripting_run_script(&scripting_context, "assets/scripts/test.fe");
@@ -35,14 +38,14 @@ int main (int argc, char ** argv) {
     
   // setup world data
   // note: come up with more memory safe way of allocating. maybe contexts?
-  int world_data_init_status;
-  e_world_object_t * world_data_array;
-  world_data_init_status = e_world_data_initialize(&world_data_array, 10, 10, 10);
-  if (world_data_init_status > 0 || world_data_array == NULL) {
-    e_sdl_quit(&context);      
+  /* int world_data_init_status; */
+  /* e_world_object_t * world_data_array; */
+  /* world_data_init_status = e_world_data_initialize(&world_data_array, 10, 10, 10); */
+  /* if (world_data_init_status > 0 || world_data_array == NULL) { */
+  /*   e_sdl_quit(&context); */
 	
-    exit(world_data_init_status);
-  }
+  /*   exit(world_data_init_status); */
+  /* } */
     
   // main event loop
   bool should_quit = false;
@@ -60,7 +63,7 @@ int main (int argc, char ** argv) {
   }
 
   // DO NOT COMMENT OUT. MEMORY LEAK: FIX
-  free(world_data_array);
+  free(object_definition_array);
 			  
   e_sdl_quit(&context);
   e_scripting_free_context(&scripting_context);
