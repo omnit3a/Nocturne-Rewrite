@@ -62,42 +62,30 @@ void e_scripting_run_script (fe_Context * context, char * path) {
   fclose(file_ptr);
 }
 
-static fe_Object * e_loader_script_register_object_def (fe_Context * context, fe_Object * args) {
-  int id = fe_tonumber(context, fe_nextarg(context, &args));
-  e_world_object_type_e type = fe_tonumber(context, fe_nextarg(context, &args));
-  
+static fe_Object * e_scripting_cfunc_register_object_def (fe_Context * context, fe_Object * args) {
   char obj_name[256] = "";
   fe_tostring(context, fe_nextarg(context, &args), obj_name, 256);
-
-  float size = fe_tonumber(context, fe_nextarg(context, &args));
-  float volume = fe_tonumber(context, fe_nextarg(context, &args));
-  float gravity = fe_tonumber(context, fe_nextarg(context, &args));
-  float dispersal_rate = fe_tonumber(context, fe_nextarg(context, &args));
-  bool is_solid = fe_tonumber(context, fe_nextarg(context, &args)) != 0;
-  int hardness = fe_tonumber(context, fe_nextarg(context, &args));
-  
+  e_world_object_type_e type = fe_tonumber(context, fe_nextarg(context, &args));
+  char callback_name[256] = "";
+  fe_tostring(context, fe_nextarg(context, &args), callback_name, 256);
+  int id = fe_tonumber(context, fe_nextarg(context, &args)); 
+    
   // create registration for object def
-  e_world_object_t * object_defs = e_world_data_get_object_def_array();
-  e_world_object_t object_info;
-  object_info.id = id;
-  object_info.name = obj_name;
-  object_info.type = type;
-
-  object_info.size = size;
-  object_info.volume = volume;
-
-  object_info.physics.gravity = gravity;
-  object_info.physics.as_non_solid.dispersal_rate = dispersal_rate;
-  object_info.physics.is_solid = is_solid;
-  object_info.physics.hardness = hardness;
+  e_world_object_t object_info = {
+    obj_name,
+    type,
+    fe_symbol(context, callback_name),
+    id,
+    id
+  };
   
-  int status = e_world_data_object_def_register(&object_defs, id, object_info);
-  e_world_data_set_object_def_array(&object_defs);
+  int status = e_world_data_object_def_register(id, object_info);
+  e_world_data_set_object_def(&object_info, id);
   
   return fe_number(context, status);
 }
 
-static fe_Object * e_scripting_import_directive (fe_Context * context, fe_Object * args) {
+static fe_Object * e_scripting_cfunc_import_directive (fe_Context * context, fe_Object * args) {
   char file_name[256] = "";
   char * file_ext = malloc(8);
   int status = 0;
@@ -123,16 +111,47 @@ static fe_Object * e_scripting_import_directive (fe_Context * context, fe_Object
   
   e_scripting_run_script(context, file_name);
   
-  return fe_number(context, status);  
+  return fe_number(context, status);
+}
+
+static fe_Object * e_scripting_cfunc_obj_callback (fe_Context * context, fe_Object * args) {
+  int id = fe_tonumber(context, fe_nextarg(context, &args));
+  int interact_type = fe_tonumber(context, fe_nextarg(context, &args));
+  
+  int gc = fe_savegc(context);
+  fe_Object * callback_eval[2];
+  callback_eval[0] = e_world_data_get_object_def(id)->callback;
+  callback_eval[1] = fe_number(context, interact_type);
+
+  fe_eval(context, fe_list(context, callback_eval, 2));
+
+  fe_restoregc(context, gc);
+   
+  return fe_number(context, 0);
+}
+
+static fe_Object * e_scripting_cfunc_modulo (fe_Context * context, fe_Object * args) {
+  int a = fe_tonumber(context, fe_nextarg(context, &args));
+  int b = fe_tonumber(context, fe_nextarg(context, &args));
+  int result = a % b;
+  return fe_number(context, result);
 }
 
 void e_scripting_register_cfuncs (e_scripting_context_t * context) {
 
   fe_set(context->context,
 	 fe_symbol(context->context, "register-obj"),
-	 fe_cfunc(context->context, e_loader_script_register_object_def));
+	 fe_cfunc(context->context, e_scripting_cfunc_register_object_def));
 
   fe_set(context->context,
 	 fe_symbol(context->context, "import"),
-	 fe_cfunc(context->context, e_scripting_import_directive));
+	 fe_cfunc(context->context, e_scripting_cfunc_import_directive));
+
+  fe_set(context->context,
+	 fe_symbol(context->context, "callback-obj"),
+	 fe_cfunc(context->context, e_scripting_cfunc_obj_callback));
+
+  fe_set(context->context,
+  	 fe_symbol(context->context, "mod"),
+  	 fe_cfunc(context->context, e_scripting_cfunc_modulo));
 }
