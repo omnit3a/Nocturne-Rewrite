@@ -120,6 +120,7 @@ static fe_Object * e_scripting_cfunc_obj_callback (fe_Context * context, fe_Obje
   
   int gc = fe_savegc(context);
   fe_Object * callback_eval[2];
+  // create function call out of callback and interaction type
   callback_eval[0] = e_object_data_get_object_def(id)->callback;
   callback_eval[1] = fe_number(context, interact_type);
 
@@ -130,6 +131,7 @@ static fe_Object * e_scripting_cfunc_obj_callback (fe_Context * context, fe_Obje
   return fe_number(context, 0);
 }
 
+// fe doesnt have built-in modulo operator for some reason, so i added this.
 static fe_Object * e_scripting_cfunc_modulo (fe_Context * context, fe_Object * args) {
   int a = fe_tonumber(context, fe_nextarg(context, &args));
   int b = fe_tonumber(context, fe_nextarg(context, &args));

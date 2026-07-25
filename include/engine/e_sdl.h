@@ -9,20 +9,25 @@
 
 // engine window object
 typedef struct e_sdl_window_s {
-    uint32_t x_position;
-    uint32_t y_position;
-    uint32_t x_size;
-    uint32_t y_size;
-    SDL_Window * window;
+  uint32_t x_position;
+  uint32_t y_position;
+  uint32_t x_size;
+  uint32_t y_size;
+  SDL_Window * window;
 } e_sdl_window_t;
 
 // engine rendering context object
 typedef struct e_sdl_context_s {
-	e_sdl_window_t * window;
-	SDL_Renderer * renderer;
-	SDL_Surface * surface;
-    SDL_Texture * texture;
+  e_sdl_window_t * window;
+  SDL_Renderer * renderer;
+  SDL_Surface * surface;
+  SDL_Texture * texture;
 } e_sdl_context_t;
+
+typedef struct e_sdl_texture_atlas_s {
+  SDL_Surface * surface;
+  SDL_Texture * texture;
+} e_sdl_texture_atlas_t;
 
 int e_sdl_init (uint32_t flags);
 e_sdl_window_t e_sdl_create_window (char * window_title, uint32_t x_size, uint32_t y_size);

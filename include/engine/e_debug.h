@@ -24,8 +24,10 @@ int e_debug_init_sequence_success (char * subsystem, int stage, int steps, char 
 // used in the case that something is already initialized
 void e_debug_already_initialized (char * subsystem, char * specifics); 
 
-// self-explanitory
+// self-explanatory
 void e_debug_script_not_found (char * script_name);
 void e_debug_script_file_not_script (char * script_name);
+
+void e_debug_file_not_found (char * subsystem, char * file_name);
 
 #endif

@@ -48,3 +48,8 @@ void e_debug_script_file_not_script (char * script_name) {
   fprintf(stderr, "[%s - STATUS]: \'%s\'\t: File is not a \'.fe\' file\n", E_DEBUG_SUBSYSTEM_SCRIPTING, script_name);
   return;
 }
+
+void e_debug_file_not_found (char * subsystem, char * file_name) {
+  fprintf(stderr, "[%s - STATUS]: %s\t: Could not find file\n", subsystem, file_name);
+  return;
+}
