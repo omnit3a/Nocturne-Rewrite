@@ -81,6 +81,8 @@ static fe_Object * e_scripting_cfunc_register_object_def (fe_Context * context, 
   
   int status = e_object_data_def_register(id, object_info);
   e_object_data_set_object_def(&object_info, id);
+  // report to the user that the object was registered
+  e_debug_script_registered_obj_def(object_info);
   
   return fe_number(context, status);
 }

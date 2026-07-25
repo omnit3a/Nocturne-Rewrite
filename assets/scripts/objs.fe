@@ -4,9 +4,9 @@
 ; TODO: seperate physics declaration into distinct cfunc
 
 (register-obj "Air"   TYPE-BLOCK "template-callback" 0)
-(register-obj "Dirt"  TYPE-BLOCK "template-callback" 1)
-(register-obj "Grass" TYPE-BLOCK "template-callback" 2)
+(register-obj "Grass" TYPE-BLOCK "template-callback" 1)
+(register-obj "Stone" TYPE-BLOCK "template-callback" 2)
 
-(callback-obj 0 0)
-(callback-obj 0 1)
-(callback-obj 0 2)
+; (callback-obj 0 0)
+; (callback-obj 0 1)
+; (callback-obj 0 2)

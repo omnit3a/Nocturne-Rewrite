@@ -28,16 +28,16 @@ int e_debug_init_sequence_success (char * subsystem, int stage, int steps, char 
 
 void e_debug_already_initialized (char * subsystem, char * specifics) {
   if (specifics != NULL) { 
-    fprintf(stderr, "[%s - STATUS]: Already initialized: %s\n", subsystem, specifics);
+    fprintf(stderr, "[%s - STATUS] Already initialized: %s\n", subsystem, specifics);
     return;
   }
 
-  fprintf(stderr, "[%s - STATUS]: Already initialized\n", subsystem);
+  fprintf(stderr, "[%s - STATUS] Already initialized\n", subsystem);
 }
 
 void e_debug_script_not_found (char * script_name) {
   if (script_name != NULL) {
-    fprintf(stderr, "[%s - STATUS]: %s\t: Could not find script\n", E_DEBUG_SUBSYSTEM_SCRIPTING, script_name);
+    fprintf(stderr, "[%s - STATUS] \'%s\'\t: Could not find script\n", E_DEBUG_SUBSYSTEM_SCRIPTING, script_name);
     return;
   }
 
@@ -45,11 +45,18 @@ void e_debug_script_not_found (char * script_name) {
 }
 
 void e_debug_script_file_not_script (char * script_name) {
-  fprintf(stderr, "[%s - STATUS]: \'%s\'\t: File is not a \'.fe\' file\n", E_DEBUG_SUBSYSTEM_SCRIPTING, script_name);
+  fprintf(stderr, "[%s - STATUS] \'%s\'\t: File is not a \'.fe\' file\n", E_DEBUG_SUBSYSTEM_SCRIPTING, script_name);
+  return;
+}
+
+void e_debug_script_registered_obj_def (e_object_data_t object) {
+  fprintf(stdout, "[%s - LOAD] \'%s\'\t: Registered object, id = %d\n", E_DEBUG_SUBSYSTEM_OBJECT_DATA,
+	  object.name,
+	  object.id);
   return;
 }
 
 void e_debug_file_not_found (char * subsystem, char * file_name) {
-  fprintf(stderr, "[%s - STATUS]: %s\t: Could not find file\n", subsystem, file_name);
+  fprintf(stderr, "[%s - STATUS] \'%s\'\t: Could not find file\n", subsystem, file_name);
   return;
 }

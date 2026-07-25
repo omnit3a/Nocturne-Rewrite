@@ -5,10 +5,12 @@
 #include <stdio.h>
 #include <unistd.h>
 
+//internal headers
+#include <engine/e_object_data.h>
+
 // debuggable sub-systems
 #define E_DEBUG_SUBSYSTEM_SDL "SDL2"
-#define E_DEBUG_SUBSYSTEM_WORLD_DATA "WORLD_DATA"
-#define E_DEBUG_SUBSYSTEM_LOAD_OBJECT_DEFS "LOAD_OBJECT_DEFS"
+#define E_DEBUG_SUBSYSTEM_OBJECT_DATA "OBJECT_DATA"
 #define E_DEBUG_SUBSYSTEM_SCRIPTING "SCRIPTING"
 
 // used for printing the status of an initialization sequence
@@ -27,6 +29,7 @@ void e_debug_already_initialized (char * subsystem, char * specifics);
 // self-explanatory
 void e_debug_script_not_found (char * script_name);
 void e_debug_script_file_not_script (char * script_name);
+void e_debug_script_registered_obj_def (e_object_data_t object);
 
 void e_debug_file_not_found (char * subsystem, char * file_name);
 

@@ -39,7 +39,8 @@ void p_render_free_atlas(e_sdl_texture_atlas_t * atlas) {
 
 void p_render_atlas_coord(e_sdl_context_t * sdl_context, e_sdl_texture_atlas_t * atlas,
 			  p_render_atlas_coord_t coordinate) {
-  if (coordinate.index > 0) {
+  // if coordinate.index >= 0, convert it to a 2d index and use that instead of coordinate.x and coordinate.y
+  if (coordinate.index >= 0) {
     coordinate.x = (coordinate.index % 16) * coordinate.w;
     coordinate.y = (coordinate.index / 16) * coordinate.h;
   }
