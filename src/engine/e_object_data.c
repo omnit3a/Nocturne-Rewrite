@@ -13,21 +13,21 @@
 // external libraries
 
 // internal headers
-#include <engine/e_world_data.h>
+#include <engine/e_object_data.h>
 #include <engine/e_debug.h>
 
-e_world_object_t * object_definitions;
+e_object_data_t * object_definitions;
 
-e_world_object_t * e_world_data_get_object_def(int index) {
+e_object_data_t * e_object_data_get_object_def(int index) {
   return &(object_definitions[index]);
 }
 
-void e_world_data_set_object_def(e_world_object_t * object_definition, int index) {
+void e_object_data_set_object_def(e_object_data_t * object_definition, int index) {
   object_definitions[index] = *object_definition;
 }
 
-int e_world_data_object_def_initialize (int indices) {
-  object_definitions = malloc(indices * sizeof(e_world_object_t));
+int e_object_data_def_initialize (int indices) {
+  object_definitions = malloc(indices * sizeof(e_object_data_t));
   
   for (int index = 0 ; index < indices ; index++) {
     object_definitions[index].name = "";
@@ -40,11 +40,11 @@ int e_world_data_object_def_initialize (int indices) {
   return 0;
 };
 
-void e_world_data_object_def_free() {
+void e_object_data_object_def_free() {
   free(object_definitions);
 }
 
-int e_world_data_object_def_register (int index, e_world_object_t object_definition) {
+int e_object_data_def_register (int index, e_object_data_t object_definition) {
   object_definitions[index].name = object_definition.name;
   object_definitions[index].type = object_definition.type;
   object_definitions[index].callback = object_definition.callback;

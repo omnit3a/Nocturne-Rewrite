@@ -9,7 +9,7 @@
 // internal headers
 #include <engine/e_sdl.h>
 #include <engine/e_input.h>
-#include <engine/e_world_data.h>
+#include <engine/e_object_data.h>
 #include <engine/e_scripting.h>
 
 int main (int argc, char ** argv) {
@@ -21,7 +21,7 @@ int main (int argc, char ** argv) {
   e_sdl_context_t context = e_sdl_setup("Nocturne Island Alpha", 640, 480, SDL_INIT_VIDEO);
 
   //load world_data object definitions  
-  e_world_data_object_def_initialize(256);
+  e_object_data_def_initialize(256);
   e_scripting_run_script(scripting_context.context, "assets/scripts/objs.fe");
         
   // main event loop
@@ -40,7 +40,7 @@ int main (int argc, char ** argv) {
   }
 
   // DO NOT COMMENT OUT. MEMORY LEAK: FIX
-  e_world_data_object_def_free();
+  e_object_data_object_def_free();
 			  
   e_sdl_quit(&context);
   e_scripting_free_context(&scripting_context);

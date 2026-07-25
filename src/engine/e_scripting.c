@@ -17,7 +17,7 @@
 // internal headers
 #include <engine/e_scripting.h>
 #include <engine/e_debug.h>
-#include <engine/e_world_data.h>
+#include <engine/e_object_data.h>
 
 e_scripting_context_t e_scripting_create_context(size_t memory_block_size) {
   e_scripting_context_t output_context;
@@ -65,13 +65,13 @@ void e_scripting_run_script (fe_Context * context, char * path) {
 static fe_Object * e_scripting_cfunc_register_object_def (fe_Context * context, fe_Object * args) {
   char obj_name[256] = "";
   fe_tostring(context, fe_nextarg(context, &args), obj_name, 256);
-  e_world_object_type_e type = fe_tonumber(context, fe_nextarg(context, &args));
+  e_object_data_type_e type = fe_tonumber(context, fe_nextarg(context, &args));
   char callback_name[256] = "";
   fe_tostring(context, fe_nextarg(context, &args), callback_name, 256);
   int id = fe_tonumber(context, fe_nextarg(context, &args)); 
     
   // create registration for object def
-  e_world_object_t object_info = {
+  e_object_data_t object_info = {
     obj_name,
     type,
     fe_symbol(context, callback_name),
@@ -79,8 +79,8 @@ static fe_Object * e_scripting_cfunc_register_object_def (fe_Context * context, 
     id
   };
   
-  int status = e_world_data_object_def_register(id, object_info);
-  e_world_data_set_object_def(&object_info, id);
+  int status = e_object_data_def_register(id, object_info);
+  e_object_data_set_object_def(&object_info, id);
   
   return fe_number(context, status);
 }
@@ -120,7 +120,7 @@ static fe_Object * e_scripting_cfunc_obj_callback (fe_Context * context, fe_Obje
   
   int gc = fe_savegc(context);
   fe_Object * callback_eval[2];
-  callback_eval[0] = e_world_data_get_object_def(id)->callback;
+  callback_eval[0] = e_object_data_get_object_def(id)->callback;
   callback_eval[1] = fe_number(context, interact_type);
 
   fe_eval(context, fe_list(context, callback_eval, 2));

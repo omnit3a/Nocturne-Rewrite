@@ -1,5 +1,5 @@
-#ifndef E_WORLD_DATA_H_
-#define E_WORLD_DATA_H_
+#ifndef E_OBJECT_DATA_H_
+#define E_OBJECT_DATA_H_
 
 // standard library
 #include <stdbool.h>
@@ -12,23 +12,16 @@
 typedef enum {
   TYPE_BLOCK,
   TYPE_ITEM
-} e_world_object_type_e;
+} e_object_data_type_e;
 
-typedef struct e_world_object_s {
+typedef struct e_object_data_s {
   char * name;
-  e_world_object_type_e type;
+  e_object_data_type_e type;
   fe_Object * callback;
   int id;
   int texture_uv;
 
   /*
-  struct pos_s {
-    int x;
-    int y;
-    int z;
-    int i; // one dimensional world index, precalculated
-  } pos;
-
   // amount of space this tile takes up within a specific x/y/z coordinate
   float size;
   // amount of space for other objects within a specific x/y/z coordinate
@@ -45,13 +38,13 @@ typedef struct e_world_object_s {
     int hardness;
   } physics;
   */  
-} e_world_object_t;
+} e_object_data_t;
 
 // sets aside space for world data array, and fill with empty blocks;
-e_world_object_t * e_world_data_get_object_def(int index);
-void e_world_data_set_object_def(e_world_object_t * object_definition_array, int index);
-int e_world_data_object_def_initialize (int indices);
-void e_world_data_object_def_free();
-int e_world_data_object_def_register (int index, e_world_object_t object_definition);
+e_object_data_t * e_object_data_get_object_def(int index);
+void e_object_data_set_object_def(e_object_data_t * object_definition, int index);
+int e_object_data_def_initialize (int indices);
+void e_object_data_object_def_free();
+int e_object_data_def_register (int index, e_object_data_t object_definition);
 
 #endif
