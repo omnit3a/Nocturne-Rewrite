@@ -27,9 +27,10 @@ all: $(TARGET)
 # non-phony targets
 $(TARGET): $(OBJ)
 	@if [ ! -d $(BIN_PATH) ]; then mkdir $(BIN_PATH); fi;
-	@printf "%s:\n\t" $(notdir $(TARGET))
+	@printf "%s:\n" $(notdir $(TARGET))
 	@$(CC) $^ $(CFLAGS) -o $@
-	@printf "Compiled Successfully!\n" 
+	@printf "\tCompiled Successfully!\n"
+	@printf "\t-> ./%s\n" $(TARGET)
 
 $(BIN_PATH)/%.o: %.c
 	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi;

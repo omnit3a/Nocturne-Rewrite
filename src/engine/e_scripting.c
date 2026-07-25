@@ -43,7 +43,8 @@ void e_scripting_run_script (fe_Context * context, char * path) {
   FILE * file_ptr = fopen(path, "rb");
   if (file_ptr == NULL) {
     e_debug_script_not_found(path);
-    return;
+    fclose(file_ptr);
+    return;    
   }
 
   int gc = fe_savegc(context);
