@@ -6,7 +6,10 @@ Scripting API Functions
     the <id> paramater is also used for texture uv lookup.
     <callback> must be a function accepting one input, the interaction type.
 
-* (callback-obj <id>:int <i-type>:int)
+* (set-obj-field <field-id>:int <obj-id>:int <value>:<typeof field>)
+  - initializes the specified field of the object
+
+* (interact-callback-obj <obj-id>:int <i-type>:int)
   - triggers a callback for object with <id> with the specified interaction type (<i-type>).
 
 Modifications/Additions to Fe

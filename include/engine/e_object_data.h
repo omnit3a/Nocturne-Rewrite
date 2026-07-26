@@ -10,18 +10,31 @@
 // internal headers
 
 typedef enum {
-  TYPE_BLOCK,
+  TYPE_BLOCK = 0,
   TYPE_ITEM
 } e_object_data_type_e;
+
+typedef enum {
+  FI_SIZE = 0,
+  FI_VOLUME,
+  FI_GRAVITY,
+  FI_FLOW,
+  FI_DISPERSAL,
+  FI_IS_SOLID,
+  FI_HARDNESS,
+  FI_TEXTURE,
+  FI_PHYSICS
+} e_object_data_fields_e;
 
 typedef struct e_object_data_s {
   char * name;
   e_object_data_type_e type;
-  fe_Object * callback;
+  fe_Object * init_callback;
+  fe_Object * interact_callback;
+  fe_Object * physics_callback;
   int id;
   int texture_uv;
 
-  /*
   // amount of space this tile takes up within a specific x/y/z coordinate
   float size;
   // amount of space for other objects within a specific x/y/z coordinate
@@ -30,14 +43,13 @@ typedef struct e_object_data_s {
   struct physics_s {
     // rate at which it will fall to the ground
     float gravity;
-    union {
-      float flow_rate; // viscousity
-      float dispersal_rate; // how fast it will disperse as a gas
+    struct {
+      float flow; // viscousity
+      float dispersal; // how fast it will disperse as a gas
     } as_non_solid;
     bool is_solid;
     int hardness;
   } physics;
-  */  
 } e_object_data_t;
 
 // sets aside space for world data array, and fill with empty blocks;

@@ -49,10 +49,10 @@ void e_debug_script_file_not_script (char * script_name) {
   return;
 }
 
-void e_debug_script_registered_obj_def (e_object_data_t object) {
+void e_debug_script_registered_obj_def (e_object_data_t * object) {
   fprintf(stdout, "[%s - LOAD] \'%s\'\t: Registered object, id = %d\n", E_DEBUG_SUBSYSTEM_OBJECT_DATA,
-	  object.name,
-	  object.id);
+	  object->name,
+	  object->id);
   return;
 }
 

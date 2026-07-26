@@ -1,11 +1,17 @@
-(import "assets/scripts/obj-help.fe")
-(import "assets/scripts/obj-callbacks.fe")
+(import "assets/scripts/std.fe")
+(import "assets/scripts/obj-init-callbacks.fe")
+(import "assets/scripts/obj-interact-callbacks.fe")
+
+; types of objects within the engine
+; todo: create enum macro
+(= TYPE-BLOCK 0)
+(= TYPE-ITEM 1)
 
 ; TODO: seperate physics declaration into distinct cfunc
 
-(register-obj "Air"   TYPE-BLOCK "template-callback" 0)
-(register-obj "Grass" TYPE-BLOCK "template-callback" 1)
-(register-obj "Stone" TYPE-BLOCK "template-callback" 2)
+(register-obj "Air"   TYPE-BLOCK "template-init-callback" "template-interact-callback" 0)
+(register-obj "Grass" TYPE-BLOCK "template-init-callback" "template-interact-callback" 1)
+(register-obj "Stone" TYPE-BLOCK "template-init-callback" "template-interact-callback" 2)
 
 ; (callback-obj 0 0)
 ; (callback-obj 0 1)

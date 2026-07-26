@@ -29,7 +29,7 @@ void e_debug_already_initialized (char * subsystem, char * specifics);
 // self-explanatory
 void e_debug_script_not_found (char * script_name);
 void e_debug_script_file_not_script (char * script_name);
-void e_debug_script_registered_obj_def (e_object_data_t object);
+void e_debug_script_registered_obj_def (e_object_data_t * object);
 
 void e_debug_file_not_found (char * subsystem, char * file_name);
 
