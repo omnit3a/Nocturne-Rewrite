@@ -38,26 +38,46 @@ void p_render_free_atlas(e_sdl_texture_atlas_t * atlas) {
 }
 
 void p_render_atlas_coord(e_sdl_context_t * sdl_context, e_sdl_texture_atlas_t * atlas,
-			  p_render_atlas_coord_t coordinate) {
+			  p_render_atlas_coord_t source, p_render_atlas_coord_t dest) {
   // if coordinate.index >= 0, convert it to a 2d index and use that instead of coordinate.x and coordinate.y
-  if (coordinate.index >= 0) {
-    coordinate.x = (coordinate.index % 16) * coordinate.w;
-    coordinate.y = (coordinate.index / 16) * coordinate.h;
+  if (source.index >= 0) {
+    source.x = (source.index % 16) * source.w;
+    source.y = (source.index / 16) * source.h;
   }
   
-  SDL_Rect source = {
-    coordinate.x,
-    coordinate.y,
-    coordinate.w,
-    coordinate.h
+  SDL_Rect sdl_src = {
+    source.x,
+    source.y,
+    source.w,
+    source.h
   };
 
-  SDL_Rect dest = {
-    coordinate.x * 2,
-    coordinate.y * 2,
-    coordinate.w * 2,
-    coordinate.h * 2
+  SDL_Rect sdl_dest = {
+    dest.x,
+    dest.y,
+    dest.w,
+    dest.h
   };
   
-  SDL_RenderCopy(sdl_context->renderer, atlas->texture, &source, &dest);
+  SDL_RenderCopy(sdl_context->renderer, atlas->texture, &sdl_src, &sdl_dest);
+}
+
+void p_render_world_data(e_sdl_context_t * sdl_context, e_sdl_texture_atlas_t * atlas,
+			 p_world_data_t * world_data) {
+  int world_bounds = world_data->width * world_data->height * world_data->depth;
+  p_render_atlas_coord_t atlas_source = {0, 0, 16, 16, 0};
+  p_render_atlas_coord_t screen_dest = {0, 0, 0, 0, -1};
+  
+  for (int i = 0 ; i < world_bounds ; i++){
+
+    screen_dest.w = 32;
+    screen_dest.h = 32;
+    screen_dest.x = (i % 16) * screen_dest.w;
+    screen_dest.y = ((i % 256) / 16) * screen_dest.h;
+    
+    int id = world_data->objects[i];
+    int texture_id = e_object_data_get_object_def(id)->texture_uv;
+    atlas_source.index = texture_id;
+    p_render_atlas_coord(sdl_context, atlas, atlas_source, screen_dest);
+  }
 }

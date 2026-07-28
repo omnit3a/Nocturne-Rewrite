@@ -12,6 +12,7 @@
 #include <engine/e_object_data.h>
 #include <engine/e_scripting.h>
 #include <project/p_render.h>
+#include <project/p_world.h>
 
 int main (int argc, char ** argv) {
   e_scripting_context_t scripting_context = e_scripting_create_context(16384);
@@ -29,7 +30,9 @@ int main (int argc, char ** argv) {
   //load object_data definitions  
   e_object_data_def_initialize(256);
   e_scripting_run_script(scripting_context.context, "assets/scripts/objs.fe");
-        
+  p_world_data_init(16, 16, 16);
+  p_world_data_t * world_data = p_world_data_get_all();
+  
   // main event loop
   bool should_quit = false;
   while (!should_quit) {
@@ -42,14 +45,12 @@ int main (int argc, char ** argv) {
       printf("Closing...\n");
       break;
     }
-    // insert gameplay loop here
-    for (int i = 0 ; i < 256 ; i++) {
-      coord.index = i;
-      p_render_atlas_coord(&sdl_context, &texture_atlas, coord);
-    }
-  }
 
+    p_render_world_data(&sdl_context, &texture_atlas, world_data);
+  }
+  
   // DO NOT COMMENT OUT. MEMORY LEAK: FIX
+  p_world_data_free();
   e_object_data_object_def_free();
 
   p_render_free_atlas(&texture_atlas);
