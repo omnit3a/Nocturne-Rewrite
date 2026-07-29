@@ -191,11 +191,11 @@ static fe_Object * e_scripting_cfunc_obj_set_field (fe_Context * context, fe_Obj
   }
 
   e_object_data_set_object_def(temp_obj, id);
-  //temp_obj = e_object_data_get_object_def(id);
 
   return fe_number(context, 0);
 }
 
+// copy all fields of object <inheriter_id> into object <id> 
 static fe_Object * e_scripting_cfunc_inherit_obj_fields (fe_Context * context, fe_Object * args) {
   int id = fe_tonumber(context, fe_nextarg(context, &args));
   int inheriter_id = fe_tonumber(context, fe_nextarg(context, &args));
@@ -215,7 +215,6 @@ static fe_Object * e_scripting_cfunc_modulo (fe_Context * context, fe_Object * a
 }
 
 void e_scripting_register_cfuncs (e_scripting_context_t * context) {
-
   fe_set(context->context,
 	 fe_symbol(context->context, "register-obj"),
 	 fe_cfunc(context->context, e_scripting_cfunc_register_object_def));

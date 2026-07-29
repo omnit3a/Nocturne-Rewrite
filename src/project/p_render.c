@@ -81,7 +81,7 @@ void p_render_world_data(e_sdl_context_t * sdl_context, e_sdl_texture_atlas_t * 
     atlas_source.index = texture_id;
 
     // shade based on object z coordinate
-    int shade = (pos.z * 15) + 32;
+    int shade = (pos.z * 16) + 32;
     SDL_SetTextureColorMod(atlas->texture, shade, shade, shade);
     
     // render call

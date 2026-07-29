@@ -70,7 +70,6 @@ int e_object_data_def_register (int index, e_object_data_t object_definition) {
   object_definitions[index].physics.as_non_solid.dispersal = 0;
   object_definitions[index].physics.is_solid = false;
   object_definitions[index].physics.hardness = 0;  
-  //printf("%s\n", object_definitions[index].callback);
   
   return 0;
 }
