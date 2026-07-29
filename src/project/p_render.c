@@ -64,20 +64,26 @@ void p_render_atlas_coord(e_sdl_context_t * sdl_context, e_sdl_texture_atlas_t *
 
 void p_render_world_data(e_sdl_context_t * sdl_context, e_sdl_texture_atlas_t * atlas,
 			 p_world_data_t * world_data) {
-  int world_bounds = world_data->width * world_data->height * world_data->depth;
+  int world_bounds = world_data->width * world_data->length * world_data->depth;
   p_render_atlas_coord_t atlas_source = {0, 0, 16, 16, 0};
-  p_render_atlas_coord_t screen_dest = {0, 0, 0, 0, -1};
-  
-  for (int i = 0 ; i < world_bounds ; i++){
+  p_render_atlas_coord_t screen_dest = {0, 0, 32, 32, -1};
 
-    screen_dest.w = 32;
-    screen_dest.h = 32;
-    screen_dest.x = (i % 16) * screen_dest.w;
-    screen_dest.y = ((i % 256) / 16) * screen_dest.h;
-    
+  for (int i = 0 ; i < world_bounds ; i++) {
+    // get screen coordinates for drawing object
+    p_world_pos_t pos = p_world_1d_to_3d(world_data, i);
+    screen_dest.x = pos.x * screen_dest.w;
+    screen_dest.y = pos.y * screen_dest.h;
+
+    // set texture atlas lookup location
     int id = world_data->objects[i];
     int texture_id = e_object_data_get_object_def(id)->texture_uv;
     atlas_source.index = texture_id;
+
+    // shade based on object z coordinate
+    int shade = (pos.z * 15) + 32;
+    SDL_SetTextureColorMod(atlas->texture, shade, shade, shade);
+    
+    // render call
     p_render_atlas_coord(sdl_context, atlas, atlas_source, screen_dest);
   }
 }

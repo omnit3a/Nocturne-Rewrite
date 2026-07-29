@@ -23,15 +23,20 @@ int main (int argc, char ** argv) {
   e_sdl_context_t sdl_context = e_sdl_setup("Nocturne Island Alpha", 640, 512, SDL_INIT_VIDEO);
   e_sdl_texture_atlas_t texture_atlas;
   p_render_load_atlas(&sdl_context, &texture_atlas, "assets/atlas.bmp");
-  p_render_atlas_coord_t coord = {
-    0, 0, 16, 16, 0
-  };
   
   //load object_data definitions  
   e_object_data_def_initialize(256);
   e_scripting_run_script(scripting_context.context, "assets/scripts/objs.fe");
-  p_world_data_init(16, 16, 16);
+  const int p_world_width = 16;
+  const int p_world_length = 16;
+  const int p_world_depth = 16;
+
+  // initialize world data
+  p_world_data_init(p_world_width, p_world_length, p_world_depth);
   p_world_data_t * world_data = p_world_data_get_all();
+
+  // generate world, terrain and so on
+  p_world_generate_terrain(world_data);
   
   // main event loop
   bool should_quit = false;
@@ -46,6 +51,7 @@ int main (int argc, char ** argv) {
       break;
     }
 
+    // render loop
     p_render_world_data(&sdl_context, &texture_atlas, world_data);
   }
   

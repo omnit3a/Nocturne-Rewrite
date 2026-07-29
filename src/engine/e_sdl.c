@@ -24,7 +24,7 @@ int e_sdl_init (uint32_t flags) {
 }
 
 e_sdl_window_t e_sdl_create_window (char * title, uint32_t x_size, uint32_t y_size) {
-  const uint32_t flags = 0;
+  const uint32_t flags = SDL_RENDERER_PRESENTVSYNC | SDL_WINDOW_RESIZABLE;
   e_sdl_window_t window;
     
   window.window = SDL_CreateWindow(title, 0, 0, x_size, y_size, flags);
