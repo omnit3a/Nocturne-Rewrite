@@ -62,6 +62,7 @@ p_world_pos_t p_world_1d_to_3d (p_world_data_t * data, int index) {
 }
 
 void p_world_generate_terrain(p_world_data_t * data) {
+  // make this scriptable with .fe
   const int world_data_size = data->width * data->length * data->depth;
   for (int i = 0 ; i < world_data_size ; i++) {
     p_world_pos_t pos = p_world_1d_to_3d(data, i);
@@ -75,6 +76,7 @@ void p_world_generate_terrain(p_world_data_t * data) {
       layer_block = 2;
     }
 
+    // add
     world_data.objects[i] = layer_block;
   }
 }

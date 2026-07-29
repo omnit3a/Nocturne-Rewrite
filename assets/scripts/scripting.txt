@@ -9,7 +9,10 @@ Scripting API Functions
 * (set-obj-field <field-id>:int <obj-id>:int <value>:<typeof field>)
   - initializes the specified field of the object
 
-* (interact-callback-obj <obj-id>:int <i-type>:int)
+* (inherit-obj-fields <dest-id>:int <src-id:int)
+  - copies all the fields of <src-id> into <dest-id>
+
+* (interact-obj-callback <obj-id>:int <i-type>:int)
   - triggers a callback for object with <id> with the specified interaction type (<i-type>).
 
 Modifications/Additions to Fe

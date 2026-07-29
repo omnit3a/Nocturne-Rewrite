@@ -191,7 +191,17 @@ static fe_Object * e_scripting_cfunc_obj_set_field (fe_Context * context, fe_Obj
   }
 
   e_object_data_set_object_def(temp_obj, id);
-  temp_obj = e_object_data_get_object_def(id);
+  //temp_obj = e_object_data_get_object_def(id);
+
+  return fe_number(context, 0);
+}
+
+static fe_Object * e_scripting_cfunc_inherit_obj_fields (fe_Context * context, fe_Object * args) {
+  int id = fe_tonumber(context, fe_nextarg(context, &args));
+  int inheriter_id = fe_tonumber(context, fe_nextarg(context, &args));
+
+  e_object_data_t * inheritance = e_object_data_get_object_def(inheriter_id);
+  e_object_data_set_object_def(inheritance, id);
 
   return fe_number(context, 0);
 }
@@ -216,13 +226,17 @@ void e_scripting_register_cfuncs (e_scripting_context_t * context) {
 
   
   fe_set(context->context,
-	 fe_symbol(context->context, "obj-interact-callback"),
+	 fe_symbol(context->context, "interact-obj-callback"),
 	 fe_cfunc(context->context, e_scripting_cfunc_obj_interact_callback));
 
   fe_set(context->context,
 	 fe_symbol(context->context, "set-obj-field"),
 	 fe_cfunc(context->context, e_scripting_cfunc_obj_set_field));
 
+  fe_set(context->context,
+	 fe_symbol(context->context, "inherit-obj-fields"),
+	 fe_cfunc(context->context, e_scripting_cfunc_inherit_obj_fields));
+  
   fe_set(context->context,
   	 fe_symbol(context->context, "mod"),
   	 fe_cfunc(context->context, e_scripting_cfunc_modulo));

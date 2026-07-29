@@ -7,12 +7,10 @@
 (= TYPE-BLOCK 0)
 (= TYPE-ITEM 1)
 
-; TODO: seperate physics declaration into distinct cfunc
-
 (register-obj "Air"   TYPE-BLOCK "air-init-callback" "template-interact-callback" 0)
 (register-obj "Grass" TYPE-BLOCK "grass-init-callback" "template-interact-callback" 1)
 (register-obj "Stone" TYPE-BLOCK "stone-init-callback" "template-interact-callback" 2)
 
-; (callback-obj 0 0)
-; (callback-obj 0 1)
-; (callback-obj 0 2)
+; (interact-obj-callback 0 0)
+; (interact-obj-callback 0 1)
+; (interact-obj-callback 0 2)
