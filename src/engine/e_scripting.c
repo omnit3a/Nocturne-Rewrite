@@ -223,7 +223,6 @@ void e_scripting_register_cfuncs (e_scripting_context_t * context) {
   fe_set(context->context,
 	 fe_symbol(context->context, "import"),
 	 fe_cfunc(context->context, e_scripting_cfunc_import_directive));
-
   
   fe_set(context->context,
 	 fe_symbol(context->context, "interact-obj-callback"),
