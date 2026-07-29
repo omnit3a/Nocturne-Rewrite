@@ -63,9 +63,6 @@ p_world_pos_t p_world_1d_to_3d (p_world_data_t * data, int index) {
 
 void p_world_generate_terrain(p_world_data_t * data) {
   const int world_data_size = data->width * data->length * data->depth;
-  // how many layers of blocks there are. just for testing.
-  // first entry is the amout of layers, the following are the blocks
-  // used for each layer. will translate well to lisp
   for (int i = 0 ; i < world_data_size ; i++) {
     p_world_pos_t pos = p_world_1d_to_3d(data, i);
     int layer_block = 0;

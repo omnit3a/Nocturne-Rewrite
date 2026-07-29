@@ -66,6 +66,7 @@ void p_render_world_data(e_sdl_context_t * sdl_context, e_sdl_texture_atlas_t * 
 			 p_world_data_t * world_data) {
   int world_bounds = world_data->width * world_data->length * world_data->depth;
   p_render_atlas_coord_t atlas_source = {0, 0, 16, 16, 0};
+  // tile width and height stored here
   p_render_atlas_coord_t screen_dest = {0, 0, 32, 32, -1};
 
   for (int i = 0 ; i < world_bounds ; i++) {
