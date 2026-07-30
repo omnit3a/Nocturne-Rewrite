@@ -1,11 +1,13 @@
+(import "assets/scripts/std.fe")
+
 (= INTERACTION-DESTROY 0)
 (= INTERACTION-CREATE  1)
 (= INTERACTION-USE     2)
 
 ; TODO: make callbacks able to get info from calling object
 
-(= template-interact-callback (fn (i-type)
+(defun template-interact-callback (i-type)
   (if (is i-type INTERACTION-DESTROY) (print "[OBJECT DESTROYED]")
       (is i-type INTERACTION-CREATE)  (print "[OBJECT CREATED]")
       (is i-type INTERACTION-USE)     (print "[OBJECT USED]")
-      (print "[UNKNOWN I-TYPE"))))
+      (print "[UNKNOWN I-TYPE")))

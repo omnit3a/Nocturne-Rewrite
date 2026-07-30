@@ -12,7 +12,7 @@
 
 ; TODO: make callbacks able to get info from calling object
 
-(= air-init-callback (fn (obj-id)
+(defun air-init-callback (obj-id)
   (set-obj-field OBJF-SIZE      obj-id   1)
   (set-obj-field OBJF-VOLUME    obj-id   1)
   (set-obj-field OBJF-GRAVITY   obj-id 9.8)
@@ -22,9 +22,9 @@
   (set-obj-field OBJF-HARDNESS  obj-id   0)
   (set-obj-field OBJF-TEXTURE   obj-id   0)
   (set-obj-field OBJF-PHYSICS   obj-id
-	       "template-physics-callback")))
+	       "template-physics-callback"))
 
-(= grass-init-callback (fn (obj-id)
+(defun grass-init-callback (obj-id)
   (set-obj-field OBJF-SIZE      obj-id   1)
   (set-obj-field OBJF-VOLUME    obj-id   1)
   (set-obj-field OBJF-GRAVITY   obj-id 9.8)
@@ -34,13 +34,13 @@
   (set-obj-field OBJF-HARDNESS  obj-id   0)
   (set-obj-field OBJF-TEXTURE   obj-id   1)
   (set-obj-field OBJF-PHYSICS   obj-id
-	       "template-physics-callback")))
+	       "template-physics-callback"))
 
-(= stone-init-callback (fn (obj-id)
+(defun stone-init-callback (obj-id)
   (inherit-obj-fields obj-id 1)
   (set-obj-field OBJF-FLOW      obj-id   3)
   (set-obj-field OBJF-DISPERSAL obj-id   5)
   (set-obj-field OBJF-HARDNESS  obj-id   5)
   (set-obj-field OBJF-TEXTURE   obj-id   2)
   (set-obj-field OBJF-PHYSICS   obj-id
-	       "template-physics-callback")))
+	       "template-physics-callback"))

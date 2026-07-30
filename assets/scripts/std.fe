@@ -1,2 +1,7 @@
 (= #t 1)
 (= #f 0)
+
+; better function declaration syntax
+(= defun (mac (name params body)
+  (list '= name
+    (list 'fn params body))))
